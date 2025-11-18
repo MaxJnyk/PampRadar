@@ -11,17 +11,20 @@ export const TokenCell: React.FC<TokenCellProps> = ({ token }) => {
   useEffect(() => {
     const updateTime = () => {
       const diff = Date.now() - token.createdAt;
-      const minutes = Math.floor(diff / 60000);
+      const seconds = Math.floor(diff / 1000);
+      const minutes = Math.floor(seconds / 60);
       const hours = Math.floor(minutes / 60);
       const days = Math.floor(hours / 24);
       
       if (days > 0) setTimeAgo(`${days}d ago`);
       else if (hours > 0) setTimeAgo(`${hours}h ago`);
       else if (minutes > 0) setTimeAgo(`${minutes}m ago`);
+      else if (seconds > 0) setTimeAgo(`${seconds}s ago`);
       else setTimeAgo('Just now');
     };
     
     updateTime();
+    // Обновляем каждую секунду для отсчета времени
     const interval = setInterval(updateTime, 1000);
     
     return () => clearInterval(interval);

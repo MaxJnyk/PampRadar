@@ -1,16 +1,23 @@
 import React from 'react';
 import { IonHeader, IonToolbar, IonTitle } from '@ionic/react';
+import { useHistory } from 'react-router-dom';
 import './Header.css';
 
 /**
  * Глобальный заголовок приложения с названием
  */
 export const Header: React.FC = () => {
+  const history = useHistory();
+
+  const handleLogoClick = () => {
+    history.push('/terminal');
+  };
+
   return (
     <IonHeader>
       <IonToolbar className="app-header">
         <IonTitle>
-          <div className="header-content">
+          <div className="header-content" onClick={handleLogoClick} style={{ cursor: 'pointer' }}>
             <svg className="header-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <circle cx="12" cy="12" r="10" stroke="url(#gradient)" strokeWidth="2" fill="none"/>
               <circle cx="12" cy="12" r="6" stroke="url(#gradient)" strokeWidth="1.5" fill="none" opacity="0.6"/>

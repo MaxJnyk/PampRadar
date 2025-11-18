@@ -1,5 +1,6 @@
-import React, { useState, Suspense } from 'react';
+import React, { useState, Suspense, useEffect } from 'react';
 import { IonPage, IonContent } from '@ionic/react';
+import { useIonViewWillEnter } from '@ionic/react';
 import { Header } from '../../../widgets/header';
 import { TokenSearch } from '../../../features/token-search';
 import { useTokens } from '../../../entities/token/model/useTokens';
@@ -32,7 +33,12 @@ const Terminal: React.FC = () => {
   const { tokens, loading, setLoading, updateToken, addNewToken, setAllTokens } = useTokens();
 
   // Загрузка начальных данных
-  useTokensLoader(setAllTokens, setLoading);
+  const { loadTokens } = useTokensLoader(setAllTokens, setLoading);
+
+  // Перезагружаем данные при каждом возврате на страницу
+  useIonViewWillEnter(() => {
+    loadTokens();
+  });
 
   // Обработчики WebSocket обновлений
   const { handleLiveUpdate, handleNewToken } = useTokenUpdatesHandler({

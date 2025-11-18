@@ -83,13 +83,13 @@ export const HoldersCell: React.FC<{ token: LaunchToken }> = ({ token }) => {
         {creatorShare > 0 && (
           <span className={`risk-badge ${creatorShare > 0.1 ? 'risk-high' : 'risk-low'}`}
                 data-tooltip={`Creator holds ${(creatorShare * 100).toFixed(2)}% of supply`}>
-            Creator {(creatorShare * 100).toFixed(2)}%
+            C {(creatorShare * 100).toFixed(2)}%
           </span>
         )}
         {topHoldersShare > 0 && (
           <span className={`risk-badge ${topHoldersShare > 0.3 ? 'risk-high' : 'risk-low'}`}
                 data-tooltip={`Top 10 holders own ${(topHoldersShare * 100).toFixed(2)}% of supply`}>
-            Top10 {(topHoldersShare * 100).toFixed(2)}%
+            T {(topHoldersShare * 100).toFixed(2)}%
           </span>
         )}
       </div>

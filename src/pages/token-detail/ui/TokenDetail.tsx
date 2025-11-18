@@ -2,25 +2,16 @@ import React from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import {
   IonPage,
-  IonHeader,
-  IonToolbar,
-  IonTitle,
   IonContent,
-  IonBackButton,
-  IonButtons,
-  IonSegment,
-  IonSegmentButton,
-  IonLabel,
   IonSkeletonText,
   IonButton,
   IonIcon,
-  IonSpinner,
 } from '@ionic/react';
-import { globeOutline, logoTwitter, paperPlaneOutline, arrowBackOutline } from 'ionicons/icons';
+import { globeOutline, logoTwitter, paperPlaneOutline } from 'ionicons/icons';
+import { Header } from '../../../widgets/header';
 import { useTokenDetail, useTokenTransactions } from '../../../entities/token-detail';
 import { TransactionsList } from '../../../entities/token-detail/ui/TransactionsList';
 import { HoldersList } from '../../../entities/token-detail/ui/HoldersList';
-import { PriceChart } from '../../../widgets/price-chart';
 import './TokenDetail.css';
 
 /**
@@ -29,7 +20,6 @@ import './TokenDetail.css';
 export const TokenDetail: React.FC = () => {
   const { mint } = useParams<{ mint: string }>();
   const history = useHistory();
-  const [selectedSegment, setSelectedSegment] = React.useState<'chart' | 'transactions' | 'holders'>('chart');
 
   const { tokenData, holders, isLoading: isLoadingToken, error: tokenError } = useTokenDetail(mint);
   const { transactions, isLoading: isLoadingTx } = useTokenTransactions(mint);
@@ -37,16 +27,7 @@ export const TokenDetail: React.FC = () => {
   if (tokenError) {
     return (
       <IonPage className="token-detail-page">
-        <IonHeader className="token-detail-header">
-          <IonToolbar>
-            <IonButtons slot="start">
-              <IonButton onClick={() => history.push('/terminal')}>
-                <IonIcon icon={arrowBackOutline} />
-              </IonButton>
-            </IonButtons>
-            <IonTitle>Error</IonTitle>
-          </IonToolbar>
-        </IonHeader>
+        <Header />
         <IonContent className="token-detail-content">
           <div className="error-message">
             <p>{tokenError.message}</p>
@@ -58,24 +39,10 @@ export const TokenDetail: React.FC = () => {
 
   return (
     <IonPage className="token-detail-page">
-      <IonHeader className="token-detail-header">
-        <IonToolbar>
-          <IonButtons slot="start">
-            <IonButton onClick={() => history.push('/terminal')}>
-              <IonIcon icon={arrowBackOutline} />
-            </IonButton>
-          </IonButtons>
-          <div className="header-title" slot="start" style={{ marginLeft: '16px' }}>
-            <div className="logo-section">
-              <span className="logo-icon">🕯️</span>
-              <span className="logo-text">CANDLES</span>
-            </div>
-          </div>
-          <IonTitle>{isLoadingToken ? 'Loading...' : tokenData?.name || 'Token'}</IonTitle>
-        </IonToolbar>
-      </IonHeader>
+      <Header />
 
       <IonContent className="token-detail-content">
+        <div className="token-detail-wrapper">
         {/* Token Info Card */}
         <div className="token-info-card">
           <div className="token-header-section">
@@ -157,50 +124,18 @@ export const TokenDetail: React.FC = () => {
           )}
         </div>
 
-        {/* Segment Selector */}
-        <div className="segment-section">
-          <IonSegment
-            value={selectedSegment}
-            onIonChange={(e) => setSelectedSegment(e.detail.value as any)}
-          >
-            <IonSegmentButton value="chart">
-              <IonLabel>Chart</IonLabel>
-            </IonSegmentButton>
-            <IonSegmentButton value="transactions">
-              <IonLabel>Transactions</IonLabel>
-            </IonSegmentButton>
-            <IonSegmentButton value="holders">
-              <IonLabel>Holders</IonLabel>
-            </IonSegmentButton>
-          </IonSegment>
-        </div>
-
-        {/* Content based on selected segment */}
-        <div className="content-card">
-          {selectedSegment === 'chart' && (
-            <div className="chart-container">
-              {isLoadingTx ? (
-                <div className="loading-container">
-                  <IonSpinner className="loading-spinner" />
-                  <p>Loading chart data...</p>
-                </div>
-              ) : transactions.length > 0 ? (
-                <PriceChart transactions={transactions} tokenSymbol={tokenData?.symbol} />
-              ) : (
-                <div className="loading-container">
-                  <p>No transaction data available</p>
-                </div>
-              )}
-            </div>
-          )}
-
-          {selectedSegment === 'transactions' && (
+        {/* Transactions and Holders Grid */}
+        <div className="data-grid">
+          <div className="data-section">
+            <h2 className="section-title">Transactions</h2>
             <TransactionsList transactions={transactions} isLoading={isLoadingTx} />
-          )}
-
-          {selectedSegment === 'holders' && (
+          </div>
+          
+          <div className="data-section">
+            <h2 className="section-title">Holders</h2>
             <HoldersList holders={holders} isLoading={isLoadingToken} />
-          )}
+          </div>
+        </div>
         </div>
       </IonContent>
     </IonPage>

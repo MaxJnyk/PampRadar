@@ -60,7 +60,7 @@ class LaunchMemeAPIService {
       });
       if (!response.ok) {
         console.error('❌ API ERROR');
-        return this.getMockTokens();
+        return [];
       }
       const data = await response.json();
       const tokensObject = data.tokens || data;
@@ -102,10 +102,10 @@ class LaunchMemeAPIService {
         }));
         return tokens;
       }
-      return this.getMockTokens();
+      return [];
     } catch (error) {
       console.error('💥 ERROR:', error);
-      return this.getMockTokens();
+      return [];
     }
   }
 

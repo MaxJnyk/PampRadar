@@ -5,26 +5,34 @@
 
 /* Search bar styles */
 .terminal-search {
-  --background: #1B212F;
-  --color: #DDE2ED;
-  --placeholder-color: #6B7E7E;
-  --icon-color: #674EEA;
-  --border-radius: 12px;
+  --background: #1B212F !important;
+  --color: #DDE2ED !important;
+  --placeholder-color: #6B7E7E !important;
+  --icon-color: #674EEA !important;
+  --border-radius: 12px !important;
   padding: 12px 16px;
   max-width: 400px;
   margin: 0 auto 20px auto;
 }
 
 .terminal-search::part(native) {
-  background: #1B212F;
-  border: 1px solid #2A3646;
-  border-radius: 12px;
+  background: #1B212F !important;
+  border: 1px solid #2A3646 !important;
+  border-radius: 12px !important;
   padding-left: 16px;
 }
 
 .terminal-search::part(native):focus {
-  border-color: #674EEA;
-  box-shadow: 0 0 0 2px rgba(103, 78, 234, 0.2);
+  border-color: #674EEA !important;
+  box-shadow: 0 0 0 2px rgba(103, 78, 234, 0.2) !important;
+}
+
+.terminal-search::part(icon) {
+  color: #674EEA !important;
+}
+
+.terminal-search::part(clear-button) {
+  color: #674EEA !important;
 }
 
 .terminal-header {
@@ -67,7 +75,7 @@
 
 .terminal-container {
   padding: 24px;
-  max-width: 1600px;
+  max-width: 1400px;
   margin: 0 auto;
 }
 
@@ -297,31 +305,194 @@
   height: 36px;
 }
 
-@media (max-width: 1200px) {
+/* АДАПТИВ - DESKTOP LARGE (1440px+) */
+@media (min-width: 1440px) {
+  .terminal-container {
+    max-width: 1400px;
+    padding: 32px;
+  }
+  
+  .terminal-search {
+    max-width: 500px;
+  }
+}
+
+/* АДАПТИВ - DESKTOP (1200px - 1439px) */
+@media (max-width: 1439px) {
+  .terminal-container {
+    padding: 24px;
+  }
+}
+
+/* АДАПТИВ - LAPTOP (1024px - 1199px) */
+@media (max-width: 1199px) {
   .table-header, .table-row {
     grid-template-columns: 2fr 1fr 1fr 1fr 0.8fr 1fr;
   }
   .col-ca {
     display: none;
   }
+  
+  .terminal-search {
+    max-width: 350px;
+  }
 }
 
-@media (max-width: 768px) {
+/* АДАПТИВ - TABLET (768px - 1023px) */
+@media (max-width: 1023px) {
   .terminal-container {
-    padding: 16px;
+    padding: 20px;
   }
+  
   .table-header, .table-row {
-    grid-template-columns: 2fr 1fr 1fr;
+    grid-template-columns: 2fr 1.2fr 1fr 1fr;
     gap: 12px;
-    padding: 16px;
   }
+  
+  .col-volume, .col-holders {
+    display: none;
+  }
+  
+  .terminal-search {
+    max-width: 100%;
+    padding: 10px 12px;
+  }
+}
+
+/* АДАПТИВ - MOBILE LARGE (640px - 767px) */
+@media (max-width: 767px) {
+  .terminal-container {
+    padding: 16px 12px;
+  }
+  
+  .terminal-search {
+    padding: 8px 12px;
+    margin-bottom: 16px;
+  }
+  
+  .table-header, .table-row {
+    grid-template-columns: 2fr 1.2fr 1fr;
+    gap: 8px;
+    padding: 12px;
+  }
+  
   .col-volume, .col-progress, .col-holders {
     display: none;
   }
+  
   .token-name {
     font-size: 14px;
   }
+  
   .mcap-text {
     font-size: 13px;
+  }
+  
+  .token-img, .token-placeholder {
+    width: 36px;
+    height: 36px;
+  }
+  
+  .trade-btn {
+    height: 32px;
+    font-size: 13px;
+    --padding-start: 12px;
+    --padding-end: 12px;
+  }
+}
+
+/* АДАПТИВ - MOBILE MEDIUM (480px - 639px) */
+@media (max-width: 639px) {
+  .terminal-container {
+    padding: 12px 8px;
+  }
+  
+  .table-header {
+    font-size: 10px;
+    padding: 10px 8px;
+  }
+  
+  .table-row {
+    padding: 10px 8px;
+  }
+  
+  .token-img, .token-placeholder {
+    width: 32px;
+    height: 32px;
+  }
+  
+  .token-name {
+    font-size: 13px;
+  }
+  
+  .token-symbol {
+    font-size: 11px;
+  }
+  
+  .mcap-text {
+    font-size: 12px;
+  }
+  
+  .trade-btn {
+    height: 28px;
+    font-size: 12px;
+    --padding-start: 10px;
+    --padding-end: 10px;
+  }
+}
+
+/* АДАПТИВ - MOBILE SMALL (до 479px) */
+@media (max-width: 479px) {
+  .terminal-container {
+    padding: 8px 4px;
+  }
+  
+  .terminal-search {
+    padding: 6px 8px;
+    margin-bottom: 12px;
+  }
+  
+  .table-header, .table-row {
+    grid-template-columns: 1.5fr 1fr 0.8fr;
+    gap: 6px;
+    padding: 8px 6px;
+  }
+  
+  .table-header {
+    font-size: 9px;
+    padding: 8px 6px;
+  }
+  
+  .token-info {
+    gap: 8px;
+  }
+  
+  .token-img, .token-placeholder {
+    width: 28px;
+    height: 28px;
+    font-size: 12px;
+  }
+  
+  .token-name {
+    font-size: 12px;
+  }
+  
+  .token-symbol {
+    font-size: 10px;
+  }
+  
+  .mcap-text {
+    font-size: 11px;
+  }
+  
+  .trade-btn {
+    height: 26px;
+    font-size: 11px;
+    --padding-start: 8px;
+    --padding-end: 8px;
+  }
+  
+  .tokens-table {
+    border-radius: 8px;
   }
 }

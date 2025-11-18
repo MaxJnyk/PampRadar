@@ -24,3 +24,36 @@
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
+
+/* АДАПТИВ - HEADER */
+@media (max-width: 767px) {
+  .header-content {
+    padding-left: 12px;
+    gap: 10px;
+  }
+  
+  .header-icon {
+    width: 24px;
+    height: 24px;
+  }
+  
+  .header-title {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 479px) {
+  .header-content {
+    padding-left: 8px;
+    gap: 8px;
+  }
+  
+  .header-icon {
+    width: 20px;
+    height: 20px;
+  }
+  
+  .header-title {
+    font-size: 16px;
+  }
+}

@@ -2,17 +2,47 @@
 
 .data-table-container {
   width: 100%;
-  overflow: hidden;
+  overflow-x: auto;
+  overflow-y: hidden;
   background: #1B212F;
   border-radius: 12px;
+  -webkit-overflow-scrolling: touch;
+  /* Изоляция для предотвращения reflow */
+  contain: layout style paint;
+}
+
+/* Красивый скроллбар */
+.data-table-container::-webkit-scrollbar {
+  height: 8px;
+}
+
+.data-table-container::-webkit-scrollbar-track {
+  background: #0E1422;
+  border-radius: 4px;
+}
+
+.data-table-container::-webkit-scrollbar-thumb {
+  background: #674EEA;
+  border-radius: 4px;
+}
+
+.data-table-container::-webkit-scrollbar-thumb:hover {
+  background: #8B6AF3;
 }
 
 .data-table {
   width: 100%;
+  min-width: 1120px;
   border-collapse: collapse;
   background: #1B212F;
   border-radius: 12px;
   overflow: hidden;
+  /* Оптимизация для предотвращения тряски */
+  backface-visibility: hidden;
+  transform: translateZ(0);
+  will-change: contents;
+  /* Фиксированная ширина колонок */
+  table-layout: fixed;
 }
 
 .data-table-header {
@@ -47,49 +77,46 @@
 
 .data-table-body {
   background: #1B212F;
-  /* Плавная анимация при добавлении новых элементов */
-  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  /* Оптимизация для плавной анимации */
+  backface-visibility: hidden;
+  transform: translateZ(0);
 }
 
 .data-table-row {
-  transition: all 0.2s ease, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: transform;
+  transition: background 0.2s ease;
+  /* Оптимизация рендеринга */
+  backface-visibility: hidden;
+  transform: translateZ(0);
 }
 
 .data-table-row:hover {
-  background: rgba(103, 78, 234, 0.08);
+  background: rgba(45, 212, 191, 0.05);
 }
 
-/* Анимация для новых токенов - плавное появление */
+/* Анимация для новых токенов - плавное появление без дерганий */
 .data-table-row.new-token {
-  animation: fadeInScale 0.6s cubic-bezier(0.16, 1, 0.3, 1), highlightNew 3s ease-out;
-  transform-origin: top center;
+  animation: fadeInSlide 0.4s ease-out, highlightNew 3s ease-out;
+  will-change: opacity, transform;
 }
 
-@keyframes fadeInScale {
+@keyframes fadeInSlide {
   0% {
     opacity: 0;
-    transform: scaleY(0.8);
-    max-height: 0;
-  }
-  50% {
-    opacity: 0.5;
-    max-height: 100px;
+    transform: translateY(-10px);
   }
   100% {
     opacity: 1;
-    transform: scaleY(1);
-    max-height: 100px;
+    transform: translateY(0);
   }
 }
 
 @keyframes highlightNew {
   0% {
-    background: rgba(103, 78, 234, 0.4);
-    box-shadow: 0 0 20px rgba(103, 78, 234, 0.3);
+    background: rgba(45, 212, 191, 0.3);
+    box-shadow: 0 0 20px rgba(45, 212, 191, 0.2);
   }
   30% {
-    background: rgba(103, 78, 234, 0.2);
+    background: rgba(45, 212, 191, 0.15);
   }
   100% {
     background: transparent;
@@ -647,4 +674,31 @@
 .trade-warning {
   --background: #D53D4C;
   --background-hover: #E54D5C;
+}
+
+/* АДАПТИВ ДЛЯ ТАБЛИЦЫ */
+@media (max-width: 1199px) {
+  .data-table {
+    min-width: 700px;
+  }
+}
+
+@media (max-width: 767px) {
+  .data-table {
+    min-width: 600px;
+  }
+  
+  .data-table-container::-webkit-scrollbar {
+    height: 6px;
+  }
+}
+
+@media (max-width: 479px) {
+  .data-table {
+    min-width: 500px;
+  }
+  
+  .data-table-container::-webkit-scrollbar {
+    height: 4px;
+  }
 }

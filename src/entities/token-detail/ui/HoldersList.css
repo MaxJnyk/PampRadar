@@ -1,13 +1,51 @@
 .holders-list {
-  background: #1B212F;
-  padding: 16px;
+  background: transparent !important;
+  --background: transparent !important;
+  --ion-background-color: transparent !important;
+  --ion-item-background: #0a0e1a !important;
+  padding: 0;
+  max-height: 600px;
+  overflow-y: auto;
+}
+
+.holders-list ion-list {
+  background: transparent !important;
+  --background: transparent !important;
+}
+
+.holders-list ion-item {
+  --background: #0a0e1a !important;
+  --ion-background-color: #0a0e1a !important;
+}
+
+.holders-list::-webkit-scrollbar {
+  width: 8px;
+}
+
+.holders-list::-webkit-scrollbar-track {
+  background: #0a0e1a;
+}
+
+.holders-list::-webkit-scrollbar-thumb {
+  background: #2dd4bf;
+  border-radius: 4px;
+}
+
+.holders-list::-webkit-scrollbar-thumb:hover {
+  background: #14b8a6;
 }
 
 .holder-item {
-  --background: #272161;
+  --background: #0a0e1a !important;
   --border-radius: 12px;
   margin-bottom: 12px;
-  border-left: 3px solid #674EEA;
+  border-left: 3px solid #2dd4bf;
+  border-bottom: 1px solid #1e2433;
+}
+
+.holder-item::part(native) {
+  background: #0a0e1a !important;
+  background-color: #0a0e1a !important;
 }
 
 .holder-header {
@@ -20,7 +58,7 @@
 .holder-rank {
   font-size: 14px;
   font-weight: 600;
-  color: #674EEA;
+  color: #2dd4bf;
   min-width: 30px;
 }
 
@@ -52,7 +90,7 @@
 }
 
 .holder-row .percentage {
-  color: #42BABE;
+  color: #2dd4bf;
 }
 
 .holders-empty {
