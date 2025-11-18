@@ -1,23 +1,15 @@
 import React from 'react';
 import { Redirect, Route } from 'react-router-dom';
-import {
-  IonApp,
-  IonIcon,
-  IonLabel,
-  IonRouterOutlet,
-  IonTabBar,
-  IonTabButton,
-  IonTabs,
-  setupIonicReact
-} from '@ionic/react';
+import { IonApp, IonRouterOutlet, setupIonicReact } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
-import { wallet, card, list, swapHorizontal } from 'ionicons/icons';
-import Tab1 from './pages/Tab1';
-import Tab2 from './pages/Tab2';
-import Tab3 from './pages/Tab3';
-import Tab4 from './pages/Tab4';
-import { SolanaProvider } from './context/SolanaContext';
-import { PrivyProvider } from './context/PrivyContext';
+import Terminal from './pages/terminal/ui/Terminal';
+import { TokenDetail } from './pages/token-detail';
+import { SolanaProvider } from './app/provider/SolanaContext';
+import { PrivyProvider } from './app/provider/PrivyContext';
+
+// Type assertion для совместимости react-router v5 с React 18
+const RouteComponent = Route as any;
+const RedirectComponent = Redirect as any;
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -36,7 +28,7 @@ import '@ionic/react/css/flex-utils.css';
 import '@ionic/react/css/display.css';
 
 /* Theme variables */
-import './theme/variables.css';
+import './app/styles/variables.css';
 
 setupIonicReact();
 
@@ -45,43 +37,11 @@ const App: React.FC = () => (
     <PrivyProvider>
       <SolanaProvider>
         <IonReactRouter>
-          <IonTabs>
-            <IonRouterOutlet>
-              <Route exact path="/tab1">
-                <Tab1 />
-              </Route>
-              <Route exact path="/tab2">
-                <Tab2 />
-              </Route>
-              <Route path="/tab3">
-                <Tab3 />
-              </Route>
-              <Route path="/tab4">
-                <Tab4 />
-              </Route>
-              <Route exact path="/">
-                <Redirect to="/tab1" />
-              </Route>
-            </IonRouterOutlet>
-            <IonTabBar slot="bottom">
-              <IonTabButton tab="tab1" href="/tab1">
-                <IonIcon aria-hidden="true" icon={wallet} />
-                <IonLabel>Wallet</IonLabel>
-              </IonTabButton>
-              <IonTabButton tab="tab2" href="/tab2">
-                <IonIcon aria-hidden="true" icon={card} />
-                <IonLabel>Tokens</IonLabel>
-              </IonTabButton>
-              <IonTabButton tab="tab3" href="/tab3">
-                <IonIcon aria-hidden="true" icon={list} />
-                <IonLabel>History</IonLabel>
-              </IonTabButton>
-              <IonTabButton tab="tab4" href="/tab4">
-                <IonIcon aria-hidden="true" icon={swapHorizontal} />
-                <IonLabel>Trade</IonLabel>
-              </IonTabButton>
-            </IonTabBar>
-          </IonTabs>
+          <IonRouterOutlet>
+            <RouteComponent exact path="/terminal" component={Terminal} />
+            <RouteComponent exact path="/token/:mint" component={TokenDetail} />
+            <RouteComponent exact path="/" render={() => <RedirectComponent to="/terminal" />} />
+          </IonRouterOutlet>
         </IonReactRouter>
       </SolanaProvider>
     </PrivyProvider>

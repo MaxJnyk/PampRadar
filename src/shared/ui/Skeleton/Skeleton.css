@@ -1,0 +1,31 @@
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    #1B212F 0%,
+    #2A3646 50%,
+    #1B212F 100%
+  );
+  background-size: 200% 100%;
+  animation: skeletonLoading 1.5s ease-in-out infinite;
+  display: inline-block;
+}
+
+@keyframes skeletonLoading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.skeleton-avatar {
+  flex-shrink: 0;
+}
+
+.skeleton-text {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}

@@ -1,0 +1,69 @@
+/* Копируем стили из data-table.css для точного соответствия */
+
+.token-table-skeleton {
+  width: 100%;
+  overflow: hidden;
+  background: #0E1422;
+}
+
+.token-table-skeleton .data-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #0E1422;
+}
+
+.token-table-skeleton .data-table-header {
+  background: #1B212F;
+  border-bottom: 2px solid #674EEA;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.token-table-skeleton .data-table-head {
+  padding: 16px 20px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #A4A8B9;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-align: left;
+  background: #1B212F;
+  white-space: nowrap;
+}
+
+.token-table-skeleton .data-table-body {
+  background: #0E1422;
+}
+
+.token-row-skeleton {
+  background: #0E1422;
+  border-bottom: 1px solid #1B212F;
+  height: 88px; /* Точная высота реальной строки */
+}
+
+.skeleton-cell {
+  padding: 16px 20px;
+  vertical-align: middle;
+}
+
+/* Token Cell */
+.skeleton-token-info {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.skeleton-token-details {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+}
+
+/* Holders Cell */
+.skeleton-risk-metrics {
+  display: flex;
+  gap: 8px;
+  margin-top: 6px;
+}

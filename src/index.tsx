@@ -5,8 +5,8 @@ import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
 
 const container = document.getElementById('root');
-// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-const root = createRoot(container!);
+if (!container) throw new Error('Failed to find the root element');
+const root = createRoot(container);
 root.render(
   <React.StrictMode>
     <App />

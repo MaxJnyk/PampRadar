@@ -1,0 +1,64 @@
+.holders-list {
+  background: #1B212F;
+  padding: 16px;
+}
+
+.holder-item {
+  --background: #272161;
+  --border-radius: 12px;
+  margin-bottom: 12px;
+  border-left: 3px solid #674EEA;
+}
+
+.holder-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.holder-rank {
+  font-size: 14px;
+  font-weight: 600;
+  color: #674EEA;
+  min-width: 30px;
+}
+
+.holder-wallet {
+  font-size: 13px;
+  font-family: monospace;
+  color: #DDE2ED;
+}
+
+.holder-details {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.holder-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+}
+
+.holder-row .label {
+  color: #A4A8B9;
+}
+
+.holder-row .value {
+  font-weight: 500;
+  color: #DDE2ED;
+}
+
+.holder-row .percentage {
+  color: #42BABE;
+}
+
+.holders-empty {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px;
+  color: #A4A8B9;
+}

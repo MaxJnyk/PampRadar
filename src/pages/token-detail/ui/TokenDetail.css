@@ -1,0 +1,278 @@
+/* Token Detail Page - Terminal Style */
+.token-detail-page {
+  --background: #0E1422;
+  background: #0E1422;
+}
+
+.token-detail-header {
+  --background: #1B212F;
+  border-bottom: 1px solid #2A3646;
+}
+
+.token-detail-header .header-title {
+  display: flex;
+  align-items: center;
+}
+
+.token-detail-header .logo-section {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.token-detail-header .logo-icon {
+  font-size: 24px;
+}
+
+.token-detail-header .logo-text {
+  font-size: 18px;
+  font-weight: 700;
+  background: linear-gradient(135deg, #674EEA 0%, #A38AFB 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.token-detail-content {
+  --background: #0E1422;
+  padding: 24px 16px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* Token Info Card */
+.token-info-card {
+  background: #1B212F;
+  border-radius: 16px;
+  margin-bottom: 24px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+}
+
+.token-header-section {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 24px;
+  background: linear-gradient(135deg, #272161 0%, #1B212F 100%);
+  border-bottom: 2px solid #674EEA;
+}
+
+.token-image {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #674EEA;
+  box-shadow: 0 4px 16px rgba(103, 78, 234, 0.3);
+}
+
+.token-info {
+  flex: 1;
+}
+
+.token-detail-page .token-info .token-name {
+  font-size: 28px;
+  font-weight: 700;
+  color: #DDE2ED;
+  margin: 0 0 8px 0;
+  background: linear-gradient(135deg, #DDE2ED 0%, #A38AFB 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.token-detail-page .token-info .token-symbol {
+  font-size: 18px;
+  color: #A4A8B9;
+  margin: 0;
+  font-weight: 600;
+}
+
+.token-mint {
+  font-family: monospace;
+  font-size: 13px;
+  color: #674EEA;
+  margin-top: 8px;
+  padding: 6px 12px;
+  background: #272161;
+  border-radius: 8px;
+  display: inline-block;
+}
+
+/* Token Stats */
+.token-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  padding: 24px;
+  background: #1B212F;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px 20px;
+  background: linear-gradient(135deg, #1B212F 0%, #272161 100%);
+  border-radius: 12px;
+  border-left: 3px solid #674EEA;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.stat-label {
+  font-size: 12px;
+  color: #A4A8B9;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.stat-value {
+  font-size: 20px;
+  font-weight: 700;
+  color: #DDE2ED;
+}
+
+.stat-value.positive {
+  color: #42BABE;
+}
+
+.stat-value.negative {
+  color: #FF6B6B;
+}
+
+/* Social Links */
+.social-links {
+  display: flex;
+  gap: 12px;
+  padding: 20px 24px;
+  border-top: 1px solid #2A3646;
+  background: #1B212F;
+}
+
+.social-link {
+  --background: #272161;
+  --background-hover: #674EEA;
+  --color: #A38AFB;
+  --padding-start: 16px;
+  --padding-end: 16px;
+  font-weight: 600;
+  text-transform: none;
+  height: 40px;
+  border-radius: 10px;
+}
+
+/* Segment Section */
+.segment-section {
+  margin-bottom: 24px;
+}
+
+.segment-section ion-segment {
+  --background: #1B212F;
+  border-radius: 12px;
+  padding: 4px;
+}
+
+.segment-section ion-segment-button {
+  --color: #A4A8B9;
+  --color-checked: #DDE2ED;
+  --indicator-color: #674EEA;
+  --indicator-height: 100%;
+  --padding-top: 12px;
+  --padding-bottom: 12px;
+  font-weight: 600;
+  text-transform: none;
+  border-radius: 8px;
+}
+
+/* Content Card */
+.content-card {
+  background: #1B212F;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+}
+
+.chart-container {
+  padding: 24px;
+  background: #1B212F;
+  min-height: 450px;
+}
+
+/* Loading State */
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 20px;
+  color: #A4A8B9;
+}
+
+.loading-spinner {
+  --color: #674EEA;
+  width: 48px;
+  height: 48px;
+  margin-bottom: 16px;
+}
+
+/* Error State */
+.error-message {
+  color: #FF6B6B;
+  text-align: center;
+  padding: 40px;
+  font-size: 16px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .token-detail-content {
+    padding: 16px;
+  }
+  
+  .token-header-section {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .token-image {
+    width: 64px;
+    height: 64px;
+  }
+  
+  .token-name {
+    font-size: 22px;
+  }
+  
+  .token-stats {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    padding: 16px;
+  }
+}
+
+.chart-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+  color: #A4A8B9;
+  text-align: center;
+}
+
+.chart-note {
+  font-size: 12px;
+  margin-top: 8px;
+}
+
+.error-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  padding: 20px;
+  text-align: center;
+  color: var(--ion-color-danger);
+}
