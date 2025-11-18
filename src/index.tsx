@@ -3,6 +3,10 @@ import { createRoot } from 'react-dom/client';
 import App from './App';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
+import { Buffer } from 'buffer';
+
+// Polyfill для Buffer (требуется для Solana web3.js)
+(window as any).Buffer = Buffer;
 
 const container = document.getElementById('root');
 if (!container) throw new Error('Failed to find the root element');

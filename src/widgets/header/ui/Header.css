@@ -25,6 +25,19 @@
   background-clip: text;
 }
 
+.create-button {
+  --background: linear-gradient(135deg, #42BABE 0%, #2DD4BF 100%);
+  --color: white;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-right: 8px;
+}
+
+.create-button span {
+  margin-left: 6px;
+}
+
 /* АДАПТИВ - HEADER */
 @media (max-width: 767px) {
   .header-content {

@@ -7,10 +7,7 @@ interface TokenTableProps {
   loading: boolean;
 }
 
-/**
- * Компонент таблицы токенов
- * Loading state обрабатывается через Suspense на уровне выше
- */
+
 export const TokenTable: React.FC<TokenTableProps> = ({ tokens }) => {
   return <DataTable columns={columns} data={tokens} />;
 };

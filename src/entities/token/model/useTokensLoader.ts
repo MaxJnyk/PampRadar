@@ -17,8 +17,6 @@ export const useTokensLoader = (
   }, [onLoad, setLoading]);
 
   useEffect(() => {
-    // Загружаем токены только один раз при монтировании
-    // WebSocket будет обновлять данные в реальном времени
     loadTokens();
   }, [loadTokens]);
 

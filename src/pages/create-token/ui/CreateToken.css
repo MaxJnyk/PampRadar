@@ -1,0 +1,32 @@
+.create-token-content {
+  --background: #0E1422;
+}
+
+.create-token-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.page-title {
+  font-size: 32px;
+  font-weight: 700;
+  color: #DDE2ED;
+  text-align: center;
+  margin: 0 0 40px 0;
+  background: linear-gradient(135deg, #674EEA 0%, #A38AFB 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+@media (max-width: 767px) {
+  .create-token-container {
+    padding: 24px 16px;
+  }
+  
+  .page-title {
+    font-size: 24px;
+    margin-bottom: 24px;
+  }
+}

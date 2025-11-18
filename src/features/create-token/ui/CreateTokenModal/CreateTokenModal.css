@@ -1,0 +1,47 @@
+.create-token-modal {
+  --height: 90%;
+  --border-radius: 16px;
+}
+
+.modal-toolbar {
+  --background: #1B212F;
+  --color: #DDE2ED;
+  --border-color: #674EEA;
+}
+
+.modal-toolbar ion-title {
+  font-size: 20px;
+  font-weight: 700;
+  background: linear-gradient(135deg, #674EEA 0%, #A38AFB 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.modal-toolbar ion-button {
+  --color: #DDE2ED;
+}
+
+.modal-toolbar ion-button:hover {
+  --color: #42BABE;
+}
+
+.modal-content {
+  --background: #0E1422;
+}
+
+.modal-container {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+@media (max-width: 767px) {
+  .create-token-modal {
+    --height: 95%;
+  }
+  
+  .modal-container {
+    padding: 16px;
+  }
+}

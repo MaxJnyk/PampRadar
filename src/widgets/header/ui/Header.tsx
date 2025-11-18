@@ -1,7 +1,8 @@
-import React from 'react';
-import { IonHeader, IonToolbar, IonTitle, IonButtons } from '@ionic/react';
+import React, { useState } from 'react';
+import { IonHeader, IonToolbar, IonTitle, IonButtons, IonButton } from '@ionic/react';
 import { useHistory } from 'react-router-dom';
 import { WalletButton } from '../../../features/wallet';
+import { CreateTokenModal } from '../../../features/create-token';
 import './Header.css';
 
 /**
@@ -9,17 +10,19 @@ import './Header.css';
  */
 export const Header: React.FC = () => {
   const history = useHistory();
+  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
 
   const handleLogoClick = () => {
     history.push('/terminal');
   };
 
   return (
-    <IonHeader>
-      <IonToolbar className="app-header">
-        <IonTitle>
-          <div className="header-content" onClick={handleLogoClick} style={{ cursor: 'pointer' }}>
-            <svg className="header-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <>
+      <IonHeader>
+        <IonToolbar className="app-header">
+          <IonTitle>
+            <div className="header-content" onClick={handleLogoClick} style={{ cursor: 'pointer' }}>
+              <svg className="header-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <circle cx="12" cy="12" r="10" stroke="url(#gradient)" strokeWidth="2" fill="none"/>
               <circle cx="12" cy="12" r="6" stroke="url(#gradient)" strokeWidth="1.5" fill="none" opacity="0.6"/>
               <circle cx="12" cy="12" r="2" fill="url(#gradient)"/>
@@ -55,9 +58,25 @@ export const Header: React.FC = () => {
         </IonTitle>
         
         <IonButtons slot="end">
+          <IonButton
+            onClick={() => setIsCreateModalOpen(true)}
+            className="create-button"
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <line x1="12" y1="5" x2="12" y2="19"/>
+              <line x1="5" y1="12" x2="19" y2="12"/>
+            </svg>
+            <span>Create</span>
+          </IonButton>
           <WalletButton />
         </IonButtons>
       </IonToolbar>
     </IonHeader>
+    
+    <CreateTokenModal
+      isOpen={isCreateModalOpen}
+      onClose={() => setIsCreateModalOpen(false)}
+    />
+  </>
   );
 };

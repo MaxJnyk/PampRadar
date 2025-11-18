@@ -26,6 +26,7 @@
     "@ionic/react": "^7.0.0",
     "@ionic/react-router": "^7.0.0",
     "@privy-io/react-auth": "^2.20.0",
+    "@solana/spl-token": "^0.4.14",
     "@solana/wallet-adapter-base": "^0.9.27",
     "@solana/wallet-adapter-react": "^0.15.39",
     "@solana/wallet-adapter-react-ui": "^0.9.39",
@@ -42,8 +43,10 @@
     "@types/react-router": "^5.1.11",
     "@types/react-router-dom": "^5.1.7",
     "antd-mobile": "^5.39.0",
+    "buffer": "^6.0.3",
     "centrifuge": "^5.5.2",
     "history": "^4.9.0",
+    "http-proxy-middleware": "^3.0.5",
     "ionicons": "^7.0.0",
     "lightweight-charts": "^4.2.0",
     "react": "^18.2.0",
@@ -65,8 +68,7 @@
     "workbox-routing": "^5.1.4",
     "workbox-strategies": "^5.1.4",
     "workbox-streams": "^5.1.4",
-    "zod": "^4.1.12",
-    "http-proxy-middleware": "^3.0.5"
+    "zod": "^4.1.12"
   },
   "devDependencies": {
     "@capacitor/cli": "7.4.2",

@@ -6,6 +6,7 @@ import Terminal from './pages/terminal/ui/Terminal';
 import { TokenDetail } from './pages/token-detail';
 import { SolanaProvider } from './app/provider/SolanaContext';
 import { PrivyProvider } from './app/provider/PrivyContext';
+import { usePrivySolana } from './shared/hooks/usePrivySolana';
 
 // Type assertion для совместимости react-router v5 с React 18
 const RouteComponent = Route as any;
@@ -32,17 +33,25 @@ import './app/styles/variables.css';
 
 setupIonicReact();
 
+const AppContent: React.FC = () => {
+  usePrivySolana(); // Автоматическая синхронизация Privy с Solana
+  
+  return (
+    <IonReactRouter>
+      <IonRouterOutlet>
+        <RouteComponent exact path="/terminal" component={Terminal} />
+        <RouteComponent exact path="/token/:mint" component={TokenDetail} />
+        <RouteComponent exact path="/" render={() => <RedirectComponent to="/terminal" />} />
+      </IonRouterOutlet>
+    </IonReactRouter>
+  );
+};
+
 const App: React.FC = () => (
   <IonApp>
     <PrivyProvider>
       <SolanaProvider>
-        <IonReactRouter>
-          <IonRouterOutlet>
-            <RouteComponent exact path="/terminal" component={Terminal} />
-            <RouteComponent exact path="/token/:mint" component={TokenDetail} />
-            <RouteComponent exact path="/" render={() => <RedirectComponent to="/terminal" />} />
-          </IonRouterOutlet>
-        </IonReactRouter>
+        <AppContent />
       </SolanaProvider>
     </PrivyProvider>
   </IonApp>

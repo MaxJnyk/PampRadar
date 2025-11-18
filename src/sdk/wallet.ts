@@ -91,8 +91,9 @@ export class SolanaWalletManager {
       await new Promise(resolve => setTimeout(resolve, 1000));
 
       if (walletType === 'demo') {
-        // Generate a demo public key for testing
-        const demoPublicKey = new PublicKey('11111111111111111111111111111112');
+        // Generate a valid demo public key for testing
+        // Using a valid Solana address (Metaplex program ID as example)
+        const demoPublicKey = new PublicKey('metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s');
         
         this.walletState = {
           connected: true,
