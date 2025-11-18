@@ -109,7 +109,6 @@ export const fetchTokenTransactions = async (tokenMint: string): Promise<Transac
       };
     });
   } catch (error) {
-    console.error('Error fetching transactions:', error);
     return [];
   }
 };

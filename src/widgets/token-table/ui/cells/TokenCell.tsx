@@ -7,6 +7,7 @@ interface TokenCellProps {
 
 export const TokenCell: React.FC<TokenCellProps> = ({ token }) => {
   const [timeAgo, setTimeAgo] = useState('');
+  const [imageError, setImageError] = useState(false);
   
   useEffect(() => {
     const updateTime = () => {
@@ -35,8 +36,14 @@ export const TokenCell: React.FC<TokenCellProps> = ({ token }) => {
       <div className="token-main">
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px' }}>
           <div className={`token-avatar ${token.isTrending ? 'trending-avatar' : ''}`}>
-            {token.image ? (
-              <img src={token.image} alt={token.symbol} className="token-img" />
+            {token.image && !imageError ? (
+              <img 
+                src={token.image} 
+                alt={token.symbol} 
+                className="token-img"
+                loading="lazy"
+                onError={() => setImageError(true)}
+              />
             ) : (
               <div className="token-placeholder">{token.symbol.charAt(0)}</div>
             )}

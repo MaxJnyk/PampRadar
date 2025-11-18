@@ -74,8 +74,6 @@ export const NewTokenDataSchema = TokenUpdateDataSchema.extend({
 export function validateTokenUpdate(data: unknown) {
   const result = TokenUpdateDataSchema.safeParse(data);
   if (!result.success) {
-    console.warn('⚠️ Token update validation FAILED:', result.error.issues);
-    console.warn('Data received:', data);
     return null;
   }
   return result.data;
@@ -84,8 +82,6 @@ export function validateTokenUpdate(data: unknown) {
 export function validateNewToken(data: unknown) {
   const result = NewTokenDataSchema.safeParse(data);
   if (!result.success) {
-    console.warn('⚠️ New token validation FAILED:', result.error.issues);
-    console.warn('Data received:', data);
     return null;
   }
   return result.data;

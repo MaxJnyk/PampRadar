@@ -2,6 +2,7 @@ import { useCallback } from 'react';
 import { LaunchToken } from '../api/tokenApi';
 import { TokenUpdateData, NewTokenData } from './types';
 import { safeNumber, fractionToPercent, normalizeImageUrl } from '../../../shared/lib';
+import { fetchTokenImage } from '../../../shared/lib/metadata';
 import { validateTokenUpdate, validateNewToken } from './schemas';
 
 interface UseTokenUpdatesHandlerProps {
@@ -15,8 +16,8 @@ export const useTokenUpdatesHandler = ({
 }: UseTokenUpdatesHandlerProps) => {
 
   const handleLiveUpdate = useCallback(
-    (mint: string, data: unknown) => {
-      const validatedData = validateTokenUpdate(data);
+    (mint: string, data: any) => {
+      const validatedData = validateTokenUpdate(data) as any;
       if (!validatedData) return;
       
       const updates: Partial<LaunchToken> = {};
@@ -26,12 +27,29 @@ export const useTokenUpdatesHandler = ({
       if (validatedData.marketCapUsd !== undefined) updates.marketCap = safeNumber(validatedData.marketCapUsd);
       if (validatedData.txCount !== undefined) updates.transactions24h = safeNumber(validatedData.txCount);
       if (validatedData.holders !== undefined) updates.holders = safeNumber(validatedData.holders);
-      if (validatedData.buys !== undefined) updates.buys = safeNumber(validatedData.buys);
+      if (validatedData.buys !== undefined) {
+        updates.buys = safeNumber(validatedData.buys);
+        updates.isTrending = (validatedData.buys || 0) > 100;
+      }
       if (validatedData.sells !== undefined) updates.sells = safeNumber(validatedData.sells);
 
       const imageUrl = normalizeImageUrl(validatedData.photo);
       if (imageUrl) {
         updates.image = imageUrl;
+      }
+      
+      if (validatedData.name) updates.name = validatedData.name;
+      if (validatedData.symbol) updates.symbol = validatedData.symbol;
+      if (validatedData.description) updates.description = validatedData.description;
+      
+      if (validatedData.x || validatedData.twitter || validatedData.socials?.twitter) {
+        updates.twitter = validatedData.x || validatedData.twitter || validatedData.socials?.twitter;
+      }
+      if (validatedData.telegram || validatedData.socials?.telegram) {
+        updates.telegram = validatedData.telegram || validatedData.socials?.telegram;
+      }
+      if (validatedData.website || validatedData.socials?.website) {
+        updates.website = validatedData.website || validatedData.socials?.website;
       }
 
       if (validatedData.progress !== undefined) {
@@ -54,8 +72,11 @@ export const useTokenUpdatesHandler = ({
 
   const handleNewToken = useCallback(
     (data: any) => {
-      
-      // БЕЗ ВАЛИДАЦИИ - просто берём данные как есть
+      if (!data || !data.token) {
+        return;
+      }
+
+      // Берем прямое изображение или undefined
       const imageUrl = normalizeImageUrl(
         data.photo || data.image || data.icon || data.avatar || data.imageUrl
       );
@@ -68,7 +89,7 @@ export const useTokenUpdatesHandler = ({
         image: imageUrl,
         mint: data.token,
         creator: data.creator || '',
-        createdAt: Date.now(),
+        createdAt: data.mint_time || Date.now(),
         marketCap: safeNumber(data.marketCapUsd),
         price: safeNumber(data.priceUsd),
         priceChange24h: 0,
@@ -77,10 +98,10 @@ export const useTokenUpdatesHandler = ({
         holders: safeNumber(data.holders),
         transactions24h: safeNumber(data.txCount),
         isVerified: false,
-        isTrending: false,
+        isTrending: (data.buys || 0) > 100,
         buys: safeNumber(data.buys),
         sells: safeNumber(data.sells),
-        twitter: data.twitter || data.socials?.twitter,
+        twitter: data.x || data.twitter || data.socials?.twitter,
         telegram: data.telegram || data.socials?.telegram,
         website: data.website || data.socials?.website,
       };
@@ -97,8 +118,19 @@ export const useTokenUpdatesHandler = ({
       }
 
       addNewToken(newToken);
+
+      // Фоновая загрузка метаданных если нет изображения
+      if (!imageUrl && data.metadataUri) {
+        fetchTokenImage(data.metadataUri).then(metadataImage => {
+          if (metadataImage) {
+            updateToken(data.token, { image: metadataImage });
+          }
+        }).catch(() => {
+          // Игнорируем ошибки
+        });
+      }
     },
-    [addNewToken]
+    [addNewToken, updateToken]
   );
 
   return {

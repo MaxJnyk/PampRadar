@@ -5,8 +5,8 @@ import { Header } from '../../../widgets/header';
 import { TokenSearch } from '../../../features/token-search';
 import { useTokens } from '../../../entities/token/model/useTokens';
 import { useTokensLoader } from '../../../entities/token/model/useTokensLoader';
-import { useLiveTokenUpdates } from '../../../entities/token/model/useLiveTokenUpdates';
 import { useTokenUpdatesHandler } from '../../../entities/token/model/useTokenUpdatesHandler';
+import { websocketWorker } from '../../../shared/api/websocketWorker';
 import { useTokenFilter } from '../../../features/token-search/model/useTokenFilter';
 import { useDebounce } from '../../../shared/hooks';
 import { lazyWithRetry } from '../../../shared/lib';
@@ -40,16 +40,24 @@ const Terminal: React.FC = () => {
     loadTokens();
   });
 
-  // Обработчики WebSocket обновлений
   const { handleLiveUpdate, handleNewToken } = useTokenUpdatesHandler({
     updateToken,
     addNewToken,
   });
 
-  // Подписка на WebSocket обновления
-  useLiveTokenUpdates(handleLiveUpdate, handleNewToken);
+  useEffect(() => {
+    const unsubscribe = websocketWorker.subscribe(
+      (mint: string, data: any) => {
+        handleLiveUpdate(mint, data);
+      },
+      (data: any) => {
+        handleNewToken(data);
+      }
+    );
 
-  // Фильтрация токенов по поисковому запросу с debounce
+    return unsubscribe;
+  }, [handleLiveUpdate, handleNewToken]);
+
   const filteredTokens = useTokenFilter(tokens, debouncedSearchText);
 
   return (

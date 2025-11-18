@@ -59,7 +59,6 @@ class LaunchMemeAPIService {
         body: JSON.stringify(params || {}),
       });
       if (!response.ok) {
-        console.error('❌ API ERROR');
         return [];
       }
       const data = await response.json();
@@ -104,7 +103,6 @@ class LaunchMemeAPIService {
       }
       return [];
     } catch (error) {
-      console.error('💥 ERROR:', error);
       return [];
     }
   }

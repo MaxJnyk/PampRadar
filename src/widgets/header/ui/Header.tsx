@@ -1,6 +1,7 @@
 import React from 'react';
-import { IonHeader, IonToolbar, IonTitle } from '@ionic/react';
+import { IonHeader, IonToolbar, IonTitle, IonButtons } from '@ionic/react';
 import { useHistory } from 'react-router-dom';
+import { WalletButton } from '../../../features/wallet';
 import './Header.css';
 
 /**
@@ -52,6 +53,10 @@ export const Header: React.FC = () => {
             <span className="header-title">PumpRadar</span>
           </div>
         </IonTitle>
+        
+        <IonButtons slot="end">
+          <WalletButton />
+        </IonButtons>
       </IonToolbar>
     </IonHeader>
   );

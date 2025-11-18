@@ -36,10 +36,6 @@ export const lazyWithRetry = <T extends ComponentType<any>>(
               return;
             }
 
-            console.warn(
-              `Failed to load component. Retrying... (${attemptsLeft} attempts left)`,
-              error
-            );
 
             setTimeout(() => {
               attemptImport(attemptsLeft - 1);

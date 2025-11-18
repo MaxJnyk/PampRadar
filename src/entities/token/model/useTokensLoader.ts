@@ -12,7 +12,6 @@ export const useTokensLoader = (
       onLoad(data);
       setLoading(false);
     } catch (error) {
-      console.error('Failed to load tokens:', error);
       setLoading(false);
     }
   }, [onLoad, setLoading]);
