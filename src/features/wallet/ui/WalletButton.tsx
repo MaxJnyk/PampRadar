@@ -8,7 +8,7 @@ import './WalletButton.css';
  * Показывает разные состояния: loading, connected, disconnected
  */
 export const WalletButton: React.FC = memo(() => {
-  const { ready, authenticated, shortAddress, copied, connect, disconnect, copyAddress } = useWallet();
+  const { ready, authenticated, connecting, shortAddress, copied, connect, disconnect, copyAddress } = useWallet();
 
   // Loading state
   if (!ready) {
@@ -40,6 +40,18 @@ export const WalletButton: React.FC = memo(() => {
         >
           <LogoutIcon />
         </button>
+      </div>
+    );
+  }
+
+  // Connecting state - show skeleton placeholder
+  if (connecting) {
+    return (
+      <div className="wallet-button-group">
+        <div className="wallet-button wallet-button-connecting">
+          <div className="wallet-skeleton-icon"></div>
+          <span className="wallet-skeleton-text"></span>
+        </div>
       </div>
     );
   }

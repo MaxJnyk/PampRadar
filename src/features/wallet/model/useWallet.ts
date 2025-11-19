@@ -43,6 +43,7 @@ export const useWallet = () => {
     // State
     ready,
     authenticated: authenticated && walletState.connected,
+    connecting: walletState.connecting,
     walletAddress,
     shortAddress,
     copied,
