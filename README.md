@@ -1,7 +1,7 @@
 ## Что Сделано
 
 ### 1. Real-time Мониторинг Токенов
-- WebSocket подключение к Pump.fun API в отдельном Web Worker
+- WebSocket подключение к https://launch.meme/docs/#/ в отдельном Web Worker
 - Таблица токенов с живыми обновлениями цен
 - Нет моков - все данные реальные с API
 
@@ -11,7 +11,6 @@
 - Создание реальных SPL токенов на Solana devnet
 - Аутентификация через Privy (email)
 - Автоматическое создание Solana кошелька из email
-- Success модалка с адресом токена и транзакцией
 
 ## Технологии
 
@@ -26,7 +25,7 @@
 ## Как Запустить
 
 ```bash
-npm install
+npm install yarn
 npm start
 ```
 
@@ -38,7 +37,7 @@ REACT_APP_PINATA_SECRET_KEY=9983f852c7c98e6f7063c19db3a600bfed3e77a74f9c7fbbaaf6
 
 ## Что Работает
 
-✅ Real-time WebSocket мониторинг (без моков)
+✅ Real-time WebSocket web worker мониторинг (без моков)
 ✅ Таблица с живыми данными
 ✅ Создание реальных SPL токенов на Solana
 ✅ IPFS загрузка изображений и метаданных
