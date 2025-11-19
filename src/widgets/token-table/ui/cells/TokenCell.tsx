@@ -5,13 +5,13 @@ interface TokenCellProps {
   token: LaunchToken;
 }
 
-export const TokenCell: React.FC<TokenCellProps> = ({ token }) => {
+// Отдельный компонент для счётчика времени - не влияет на мемоизацию TokenCell
+const TimeCounter: React.FC<{ createdAt: number }> = ({ createdAt }) => {
   const [timeAgo, setTimeAgo] = useState('');
-  const [imageError, setImageError] = useState(false);
   
   useEffect(() => {
     const updateTime = () => {
-      const diff = Date.now() - token.createdAt;
+      const diff = Date.now() - createdAt;
       const seconds = Math.floor(diff / 1000);
       const minutes = Math.floor(seconds / 60);
       const hours = Math.floor(minutes / 60);
@@ -25,11 +25,15 @@ export const TokenCell: React.FC<TokenCellProps> = ({ token }) => {
     };
     
     updateTime();
-    // Обновляем каждую секунду для отсчета времени
-    const interval = setInterval(updateTime, 1000);
-    
+    const interval = setInterval(updateTime, 10000); // Обновляем каждые 10 секунд
     return () => clearInterval(interval);
-  }, [token.createdAt]);
+  }, [createdAt]);
+  
+  return <div className="token-time">{timeAgo}</div>;
+};
+
+export const TokenCell: React.FC<TokenCellProps> = React.memo(({ token }) => {
+  const [imageError, setImageError] = useState(false);
 
   return (
     <div className="token-info-section" style={{ position: 'relative' }}>
@@ -52,7 +56,7 @@ export const TokenCell: React.FC<TokenCellProps> = ({ token }) => {
               <div className="avatar-fire-badge">🔥</div>
             )}
           </div>
-          <div className="token-time">{timeAgo}</div>
+          <TimeCounter createdAt={token.createdAt} />
         </div>
         
         <div className="token-details">
@@ -107,4 +111,14 @@ export const TokenCell: React.FC<TokenCellProps> = ({ token }) => {
       </div>
     </div>
   );
-};
+}, (prev, next) => {
+  return prev.token.name === next.token.name &&
+         prev.token.symbol === next.token.symbol &&
+         prev.token.image === next.token.image &&
+         prev.token.isTrending === next.token.isTrending &&
+         prev.token.description === next.token.description &&
+         prev.token.twitter === next.token.twitter &&
+         prev.token.telegram === next.token.telegram &&
+         prev.token.website === next.token.website &&
+         prev.token.createdAt === next.token.createdAt;
+});

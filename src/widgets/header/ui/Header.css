@@ -43,14 +43,26 @@
   --background: linear-gradient(135deg, #42BABE 0%, #2DD4BF 100%);
   --color: white;
   --border-radius: 12px;
+  --padding-start: 16px;
+  --padding-end: 16px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.5px;
   margin-right: 8px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
 }
 
 .create-button span {
   margin-left: 6px;
+}
+
+ion-buttons {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 /* АДАПТИВ - HEADER */

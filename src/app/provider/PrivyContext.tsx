@@ -1,5 +1,6 @@
 import React, { createContext, useContext, ReactNode } from 'react';
 import { PrivyProvider as PrivyProviderBase, usePrivy } from '@privy-io/react-auth';
+import logo from '../../shared/assets/logo.png';
 
 interface PrivyContextType {
   login: () => void;
@@ -39,9 +40,9 @@ export const PrivyProvider: React.FC<PrivyProviderProps> = ({ children }) => {
       appId="cmbf1wlvo00d7jm0no9hnu50a"
       config={{
         appearance: {
-          theme: 'light',
-          accentColor: '#676FFF',
-          logo: 'https://your-logo-url.com/logo.png',
+          theme: 'dark',
+          accentColor: '#42BABE',
+          logo,
         },
         loginMethods: ['email'],
         embeddedWallets: {

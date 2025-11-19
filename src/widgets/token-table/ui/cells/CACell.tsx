@@ -5,7 +5,7 @@ interface CACellProps {
   token: LaunchToken;
 }
 
-export const CACell: React.FC<CACellProps> = ({ token }) => {
+export const CACell: React.FC<CACellProps> = React.memo(({ token }) => {
   const [copied, setCopied] = useState(false);
 
   const copyToClipboard = async (text: string) => {
@@ -44,4 +44,7 @@ export const CACell: React.FC<CACellProps> = ({ token }) => {
       </div>
     </div>
   );
-};
+}, (prev, next) => {
+  return prev.token.mint === next.token.mint &&
+         prev.token.creator === next.token.creator;
+});
