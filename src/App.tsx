@@ -8,7 +8,6 @@ import { SolanaProvider } from './app/provider/SolanaContext';
 import { PrivyProvider } from './app/provider/PrivyContext';
 import { usePrivySolana } from './shared/hooks/usePrivySolana';
 
-// Type assertion для совместимости react-router v5 с React 18
 const RouteComponent = Route as any;
 const RedirectComponent = Redirect as any;
 
@@ -34,7 +33,7 @@ import './app/styles/variables.css';
 setupIonicReact();
 
 const AppContent: React.FC = () => {
-  usePrivySolana(); // Автоматическая синхронизация Privy с Solana
+  usePrivySolana();
   
   return (
     <IonReactRouter>

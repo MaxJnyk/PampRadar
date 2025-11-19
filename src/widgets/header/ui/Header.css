@@ -28,6 +28,7 @@
 .create-button {
   --background: linear-gradient(135deg, #42BABE 0%, #2DD4BF 100%);
   --color: white;
+  --border-radius: 12px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.5px;

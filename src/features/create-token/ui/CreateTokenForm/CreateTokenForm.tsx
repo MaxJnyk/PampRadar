@@ -6,17 +6,13 @@ import { TokenFormData } from '../../model/types';
 import './CreateTokenForm.css';
 
 interface CreateTokenFormProps {
-  onSuccess?: () => void;
+  onSuccess?: (tokenAddress: string, transactionSignature: string) => void;
+  onCreatingChange?: (isCreating: boolean) => void;
 }
 
-/**
- * Форма создания токена
- * Следует принципам controlled components и валидации
- */
-export const CreateTokenForm: React.FC<CreateTokenFormProps> = memo(({ onSuccess }) => {
+export const CreateTokenForm: React.FC<CreateTokenFormProps> = memo(({ onSuccess, onCreatingChange }) => {
   const { createToken, isCreating, error: creationError } = useCreateToken();
   
-  // Form state
   const [formData, setFormData] = useState<TokenFormData>({
     name: '',
     ticker: '',
@@ -37,20 +33,16 @@ export const CreateTokenForm: React.FC<CreateTokenFormProps> = memo(({ onSuccess
   ) => {
     let value = e.target.value;
     
-    // Автоматически конвертируем ticker в uppercase
     if (field === 'ticker') {
       value = value.toUpperCase();
     }
     
-    // Конвертируем buyAmount в number
     const finalValue = field === 'buyAmount' 
       ? (value === '' ? 0 : Number(value))
       : value;
     
     setFormData(prev => ({ ...prev, [field]: finalValue }));
-    
-    // Очищаем ошибку при изменении
-    if (errors[field]) {
+        if (errors[field]) {
       setErrors(prev => {
         const newErrors = { ...prev };
         delete newErrors[field];
@@ -61,8 +53,6 @@ export const CreateTokenForm: React.FC<CreateTokenFormProps> = memo(({ onSuccess
 
   const handleImageChange = (file: File | null) => {
     setFormData(prev => ({ ...prev, image: file }));
-    
-    // Валидация изображения
     const error = validateImageFile(file);
     setImageError(error || '');
   };
@@ -70,19 +60,15 @@ export const CreateTokenForm: React.FC<CreateTokenFormProps> = memo(({ onSuccess
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    console.log('Form submitted!', formData);
-    
-    // Валидация формы
     const imageValidationError = validateImageFile(formData.image);
     if (imageValidationError) {
-      console.log('Image validation error:', imageValidationError);
       setImageError(imageValidationError);
       return;
     }
     
+    onCreatingChange?.(true);
+    
     try {
-      // Валидация через Zod
-      console.log('Validating form data...');
       const validatedData = tokenFormSchema.parse({
         name: formData.name,
         ticker: formData.ticker,
@@ -96,22 +82,16 @@ export const CreateTokenForm: React.FC<CreateTokenFormProps> = memo(({ onSuccess
           : formData.buyAmount,
       });
       
-      console.log('Validation passed!', validatedData);
-      
-      // Создание токена
-      console.log('Creating token...');
       const result = await createToken(formData);
       
-      console.log('Token creation result:', result);
-      
-      if (result.success) {
-        console.log('Token created successfully!');
-        onSuccess?.();
+      if (result.success && result.tokenAddress && result.transactionSignature) {
+        onCreatingChange?.(false);
+        onSuccess?.(result.tokenAddress, result.transactionSignature);
+      } else {
+        onCreatingChange?.(false);
       }
     } catch (err: any) {
-      console.error('Form submission error:', err);
-      
-      // Обработка ошибок валидации Zod
+      onCreatingChange?.(false);
       if (err.errors && Array.isArray(err.errors)) {
         const newErrors: Record<string, string> = {};
         err.errors.forEach((error: any) => {
@@ -120,10 +100,7 @@ export const CreateTokenForm: React.FC<CreateTokenFormProps> = memo(({ onSuccess
             newErrors[field] = error.message;
           }
         });
-        console.log('Validation errors:', newErrors);
         setErrors(newErrors);
-        
-        // Показываем alert с ошибками
         const errorMessages = Object.entries(newErrors)
           .map(([field, message]) => `${field}: ${message}`)
           .join('\n');
@@ -134,7 +111,6 @@ export const CreateTokenForm: React.FC<CreateTokenFormProps> = memo(({ onSuccess
 
   return (
     <form className="create-token-form" onSubmit={handleSubmit}>
-      {/* Global errors */}
       {Object.keys(errors).length > 0 && (
         <div className="form-error-box">
           <h3>⚠️ Please fix the following errors:</h3>
@@ -148,14 +124,12 @@ export const CreateTokenForm: React.FC<CreateTokenFormProps> = memo(({ onSuccess
         </div>
       )}
 
-      {/* Image Upload */}
       <ImageUpload
         value={formData.image}
         onChange={handleImageChange}
         error={imageError}
       />
 
-      {/* 1. Basic data */}
       <section className="form-section">
         <h2 className="section-title">1. Basic data</h2>
         <p className="section-description">
@@ -199,7 +173,6 @@ export const CreateTokenForm: React.FC<CreateTokenFormProps> = memo(({ onSuccess
         </div>
       </section>
 
-      {/* 2. Social optional data */}
       <section className="form-section">
         <h2 className="section-title">2. Social optional data</h2>
         
@@ -248,7 +221,6 @@ export const CreateTokenForm: React.FC<CreateTokenFormProps> = memo(({ onSuccess
         </div>
       </section>
 
-      {/* 3. Advanced */}
       <section className="form-section">
         <h2 className="section-title">3. Advanced</h2>
         
@@ -266,7 +238,6 @@ export const CreateTokenForm: React.FC<CreateTokenFormProps> = memo(({ onSuccess
         </div>
       </section>
 
-      {/* Submit */}
       {creationError && (
         <div className="form-error">{creationError}</div>
       )}

@@ -1,11 +1,6 @@
 import { z } from 'zod';
 
-/**
- * Схема валидации формы создания токена
- * Использует Zod для type-safe валидации
- */
 export const tokenFormSchema = z.object({
-  // Basic data - обязательные поля
   name: z
     .string()
     .min(1, 'Name is required')
@@ -22,7 +17,6 @@ export const tokenFormSchema = z.object({
     .max(500, 'Description must be less than 500 characters')
     .optional(),
   
-  // Social links - опциональные, можно username или URL
   discord: z
     .string()
     .optional(),
@@ -42,7 +36,6 @@ export const tokenFormSchema = z.object({
       message: 'Invalid website URL',
     }),
   
-  // Advanced
   buyAmount: z
     .number()
     .min(0, 'Buy amount must be positive')
@@ -51,9 +44,6 @@ export const tokenFormSchema = z.object({
 
 export type TokenFormValues = z.infer<typeof tokenFormSchema>;
 
-/**
- * Валидация файла изображения
- */
 export const validateImageFile = (file: File | null): string | null => {
   if (!file) {
     return 'Image is required';

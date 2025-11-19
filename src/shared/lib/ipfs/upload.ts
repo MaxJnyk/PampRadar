@@ -1,21 +1,9 @@
-/**
- * Сервис для загрузки файлов в IPFS
- * Использует публичный gateway для простоты
- */
-
 const IPFS_GATEWAY = 'https://api.pinata.cloud/pinning/pinFileToIPFS';
 const PINATA_API_KEY = process.env.REACT_APP_PINATA_API_KEY;
 const PINATA_SECRET_KEY = process.env.REACT_APP_PINATA_SECRET_KEY;
 
-/**
- * Загрузка изображения в IPFS
- */
 export async function uploadImageToIPFS(file: File): Promise<string> {
   try {
-    // Используем публичный IPFS gateway (nft.storage или pinata)
-    // Для production нужно настроить свой API ключ
-    
-    // Если есть API ключи Pinata
     if (PINATA_API_KEY && PINATA_SECRET_KEY) {
       const formData = new FormData();
       formData.append('file', file);
@@ -48,8 +36,6 @@ export async function uploadImageToIPFS(file: File): Promise<string> {
     });
 
     if (!nftStorageResponse.ok) {
-      const errorText = await nftStorageResponse.text();
-      console.error('NFT.Storage error:', errorText);
       throw new Error(`Failed to upload to NFT.Storage: ${nftStorageResponse.status}`);
     }
 
@@ -57,14 +43,10 @@ export async function uploadImageToIPFS(file: File): Promise<string> {
     const cid = nftData.value?.cid || nftData.cid;
     return `https://nftstorage.link/ipfs/${cid}`;
   } catch (error) {
-    console.error('IPFS upload error:', error);
     throw new Error('Failed to upload image to IPFS');
   }
 }
 
-/**
- * Создание метаданных токена и загрузка в IPFS
- */
 export async function uploadMetadataToIPFS(metadata: {
   name: string;
   symbol: string;

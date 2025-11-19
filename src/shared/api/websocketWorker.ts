@@ -39,7 +39,6 @@ class WebSocketWorkerManager {
 
   private flushNewTokens() {
     if (this.newTokensBuffer.length > 0) {
-      console.log(`[Manager] Flushing ${this.newTokensBuffer.length} new tokens`);
       const tokens = [...this.newTokensBuffer];
       this.newTokensBuffer = [];
       this.flushTimer = null;
