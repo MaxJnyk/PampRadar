@@ -8,6 +8,8 @@ interface PrivyContextType {
   authenticated: boolean;
   user: any;
   ready: boolean;
+  userEmail?: string;
+  userId?: string;
 }
 
 const PrivyContext = createContext<PrivyContextType | undefined>(undefined);
@@ -19,12 +21,18 @@ interface PrivyProviderProps {
 const PrivyAuthWrapper: React.FC<{ children: ReactNode }> = ({ children }) => {
   const { login, logout, authenticated, user, ready } = usePrivy();
 
+  // Извлекаем email и userId из user объекта
+  const userEmail = user?.email?.address;
+  const userId = user?.id;
+
   const value: PrivyContextType = {
     login: () => login({ loginMethods: ['email'] }),
     logout,
     authenticated,
     user,
-    ready
+    ready,
+    userEmail,
+    userId,
   };
 
   return (
