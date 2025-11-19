@@ -3,11 +3,25 @@
   --color: #FFFFFF;
 }
 
+.app-header ion-toolbar {
+  --padding-start: 0;
+  --padding-end: 0;
+}
+
+.header-wrapper {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
 .header-content {
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  padding-left: 16px;
   gap: 12px;
 }
 
@@ -41,8 +55,11 @@
 
 /* АДАПТИВ - HEADER */
 @media (max-width: 767px) {
+  .header-wrapper {
+    padding: 0 12px;
+  }
+
   .header-content {
-    padding-left: 12px;
     gap: 10px;
   }
   
@@ -54,11 +71,24 @@
   .header-title {
     font-size: 18px;
   }
+
+  .create-button span {
+    display: none;
+  }
+
+  .create-button {
+    min-width: 44px;
+    --padding-start: 12px;
+    --padding-end: 12px;
+  }
 }
 
 @media (max-width: 479px) {
+  .header-wrapper {
+    padding: 0 8px;
+  }
+
   .header-content {
-    padding-left: 8px;
     gap: 8px;
   }
   
